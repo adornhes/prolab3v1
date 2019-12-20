@@ -6,7 +6,7 @@ struct komsular
 {
     int plaka_kodu2;
     struct komsular *next_komsu;
-    // char ksehir_adi[20];
+     char ksehir_adi[20];
 
 } ;
 typedef struct komsular *knode;   //komsular structini isaret eden pointer veri tipimiz
@@ -123,7 +123,7 @@ void fileread2(FILE *p)
                     printf("\n ilk kgecici icin bellek tahsis edilemedi...\n");
                     break;
                 }
-                // strcpy(iter->ilk_komsu->ksehir_adi,delimiter);
+                 strcpy(iter->ilk_komsu->ksehir_adi,delimiter);
                 kson=iter->ilk_komsu;
                 kson->next_komsu=NULL;
                 while(1)                                                 //komsu sehilerin plakalarini bulan dongu..
@@ -147,7 +147,7 @@ void fileread2(FILE *p)
                     printf("\nkgecici ye bellek tahsis edilemedi...\n");
                     break;
                 }
-                //  strcpy(kgecici->ksehir_adi,delimiter);
+                  strcpy(kgecici->ksehir_adi,delimiter);
                 kson->next_komsu=kgecici;
                 kson=kgecici;
                 kgecici=NULL;
@@ -187,67 +187,20 @@ void fileread2(FILE *p)
     }
     fclose(p);
 }
-node bul1(char *param,int check)           //sehir adinin kullanicidan alip listede arama yapar..
-{
-    if(check>0)
-    {
-        int newparam=atoi(param);
-        iter=NULL;
-        iter=ilk;
-        while(iter!=NULL)
-        {
-            if(iter->plaka_kodu==newparam)
-            {
-                return iter;
 
-            }
-            else
-            {
-                iter=iter->next_sehir;
-            }
-        }
-    }
-    else
-    {
-        iter=NULL;
-        iter=ilk;
-        while(iter!=NULL)
-        {
-            if(strcmp(iter->sehir_adi,param)==0)
-            {
-                return iter;
-            }
-            else
-            {
-                iter=iter->next_sehir;
-            }
-        }
-    }
-    return NULL;
-
-}
 
 int main()
 {
     FILE *p;
     fileread1(p);
     fileread2(p);
-    /*  char yeni_sehir[20];
-      int yeni_plaka;
-      char yeni_bolge[2];
-      printf("yeni sehrin adini giriniz(maks. 20 harf.): ");
-      scanf("%s",&yeni_sehir);
-      printf("yeni sehrin plakasini giriniz: ");
-      scanf("%d",&yeni_plaka);
-      printf("yeni sehrin bolgesini giriniz(maks. 2 harf ile kisaltiniz): ");
-      scanf("%s",&yeni_plaka);
-      sehir_ekle(&yeni_plaka,&yeni_sehir,&yeni_bolge);  */
 
-    printf("\nfonksiyon calisti");
+
     iter=ilk;
-    kiter=iter->ilk_komsu;
+
     while(1)
     {
+        kiter=iter->ilk_komsu;
         printf("\n%d %s %s komsu sayisi:%d      ",iter->plaka_kodu,iter->sehir_adi,iter->bolge,iter->komsu_say);
         while(kiter!=NULL)
         {
@@ -257,77 +210,8 @@ int main()
         iter=iter->next_sehir;
         if(iter==NULL)
             break;
-        kiter=iter->ilk_komsu;
+
     }
-    char aranan[20];
-    int check=0;
-    node yardimci=NULL;
-    knode yardimci2=NULL;
-    printf("\n\n\aramak istediginiz sehrin adini veya plaka kodunu (ilk harf buyuk diger harfler kucuk): ");
-    scanf("%s",&aranan);
-    if(isdigit(aranan)==0)
-    {
-        check++;
-        if(bul1(&aranan,check)==NULL)
-        {
-            printf("\naranan sehir yoktur.Yeni sehir eklemek ister misin sahip ?(Y/N)");
-            char a;
-            scanf(" %c",&a);
-            if(a=='Y')
-            {
-                printf("yeni sehir ekleniyor...");
-            }
-            else
-            {
-                printf("menuye donuluyor...");
-            }
-        }
-        if(bul1(&aranan,check)!=NULL)
-        {
-            yardimci=bul1(&aranan,check);
-            yardimci2=yardimci->ilk_komsu;
-            printf("aratilan sehrin adi:%s \nbulundugu bolge: %s",yardimci->sehir_adi,yardimci->bolge);
-            printf("\naratilan sehrin komsulari: ");
-            while(yardimci2!=NULL)
-            {
-                printf("%d ",yardimci2->plaka_kodu2);
-                yardimci2=yardimci2->next_komsu;
-            }
-        }
-    }
-    else
-    {
-        if(bul1(&aranan,check)==NULL)
-        {
-            printf("\naranan sehir yoktur.Yeni sehir eklemek ister misin sahip ?(Y/N)");
-            char a;
-            scanf(" %c",&a);
-            if(a=='Y')
-            {
-                printf("yeni sehir ekleniyor...");
-
-            }
-            else
-            {
-                printf("menuye donuluyor...");
-
-
-            }
-        }
-        if(bul1(&aranan,check)!=NULL)
-        {
-            yardimci=bul1(&aranan,check);
-            yardimci2=yardimci->ilk_komsu;
-            printf("aratilan sehrin plaka kodu:%d \nbulundugu bolge: %s",yardimci->plaka_kodu,yardimci->bolge);
-            printf("\naratilan sehrin komsulari: ");
-            while(yardimci2!=NULL)
-            {
-                printf("%d ",yardimci2->plaka_kodu2);
-                yardimci2=yardimci2->next_komsu;
-            }
-        }
-    }
-
     return 0;
 }
 
